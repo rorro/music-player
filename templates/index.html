@@ -1,0 +1,30 @@
+<DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+            <title>Music Player</title>
+            <link rel="shortcut icon" type="image/x-icon" href="static/favicon.ico"/>
+
+            <link rel="stylesheet" href="static/style.css">
+
+            <script type="text/javascript" src="static/load_songs.js"></script>
+
+            <script>
+                main();
+            </script>
+    </head>
+    <body>
+        <p>Music Player</p>
+        <audio  controls preload="metadata" style=" width:50%;", id="player">
+            <source src="static/music/Assyrian - Abdol Ahad Nissan - Kaldon Mokhebte.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio><br />
+
+        <div id="rating">
+        </div>
+
+        <div id="playlist">
+        </div>
+
+    </body>
+</html>
