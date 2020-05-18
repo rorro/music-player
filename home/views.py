@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template
+import os
 
-bp = Blueprint('bp', __name__)
+static_folder = os.path.join(os.pardir, 'static')
+bp = Blueprint('bp', __name__, static_folder=static_folder, static_url_path='/static/')
 
 @bp.route("/")
 def display_home_view():
