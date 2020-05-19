@@ -8,14 +8,10 @@
             <link rel="stylesheet" href="static/style.css">
 
             <script type="text/javascript" src="static/load_songs.js"></script>
-
-            <script>
-                main();
-            </script>
     </head>
     <body>
         <p>Music Player</p>
-        <audio  controls preload="metadata" style=" width:50%;", id="player">
+        <audio  controls preload="metadata" style="width:50%;", id="player">
             <source src="static/music/Assyrian - Abdol Ahad Nissan - Kaldon Mokhebte.mp3" type="audio/mpeg">
             Your browser does not support the audio element.
         </audio><br />
@@ -23,7 +19,10 @@
         <div id="rating">
         </div>
 
+        <p id="playlist_header">Album | Song</p>
         <div id="playlist">
+            <ul id="lst">
+            </ul>
         </div>
 
     </body>
