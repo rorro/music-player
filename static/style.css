@@ -43,27 +43,40 @@ html, body {
 }
 
 a {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 #previous, #next {
-  color: white;
-  font-size: 16px;
-  width: 40px;
-  height: 40px;
-  display: grid;
-  align-content: center;
-  text-align: center;
+    color: white;
+    font-size: 16px;
+    width: 40px;
+    height: 40px;
+    display: grid;
+    align-content: center;
+    text-align: center;
 }
 
-#rating {
-  color: #E43F5A;
-  font-size: 16px;
-  width: 50px;
-  height: 50px;
-  display: grid;
-  align-content: center;
-  text-align: center;
+.fa {
+    display: grid !important;
+    align-content: center;
+    text-align: center;
+}
+
+.rating {
+    width: 50px;
+    height: 50px;
+}
+
+.rating:hover {
+    cursor: default;
+}
+
+#thumb-up {
+    color: #3FE487;
+}
+
+#thumb-down {
+    color: #E43F5A;
 }
 
 .control-button:hover {
@@ -75,10 +88,10 @@ a {
 }
 
 #playlist-header {
-   font-weight: bold;
-   word-spacing: 4em;
-   border-bottom: 1px white solid;
-   list-style-type: none;
+    font-weight: bold;
+    word-spacing: 4em;
+    border-bottom: 1px white solid;
+    list-style-type: none;
 }
 
 #playlist {
@@ -89,10 +102,10 @@ a {
 }
 
 .playlist-entry {
-   list-style-type: none;
-   font-size: 0.9em;
-   margin-left: -30px;
-   cursor: pointer;
+    list-style-type: none;
+    font-size: 0.9em;
+    margin-left: -30px;
+    cursor: pointer;
 }
 
 .playlist-entry:hover {
