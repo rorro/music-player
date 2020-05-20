@@ -17,9 +17,9 @@ def static_file(path):
 def get_songlist():
     mp3files = []
 
-    for f in os.walk(MUSIC_FOLDER):
-        for fle in glob.glob(os.path.join(f[0], '*.mp3')):
-            mp3files.append(fle)
+    for root, dirs, files in os.walk(MUSIC_FOLDER):
+        if files:
+            mp3files += [os.path.join(root, f) for f in files if f.endswith('.mp3')]
 
     print("mp3files:", len(mp3files))
 
