@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, jsonify
 import os, glob
+from urllib.parse import quote
 
 static_folder = os.path.join(os.pardir, 'static')
 MUSIC_FOLDER = "static/music"
@@ -19,7 +20,7 @@ def get_songlist():
 
     for root, dirs, files in os.walk(MUSIC_FOLDER):
         if files:
-            mp3files += [os.path.join(root, f) for f in files if f.endswith('.mp3')]
+            mp3files += [quote(os.path.join(root, f)) for f in files if f.endswith('.mp3')]
 
     print("mp3files:", len(mp3files))
 

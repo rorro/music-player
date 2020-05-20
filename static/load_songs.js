@@ -33,7 +33,7 @@ function get_playlist() {
                 formatted_song = formatted_song.split(".").slice(0,-1).join();
 
                 let li = document.createElement("li");
-                li.appendChild(document.createTextNode(formatted_song));
+                li.appendChild(document.createTextNode(unescape(formatted_song)));
                 li.setAttribute("class", "playlist_entry");
                 li.setAttribute("id", song);
                 li.setAttribute("onclick", "select_song(this)");
