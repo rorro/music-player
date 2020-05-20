@@ -1,18 +1,44 @@
 window.onload = function() {
     var song_list = [];
+    var song_list_len = 0;
     var player = document.getElementById("player");
 
-    player.setAttribute("src", localStorage.current_song);
+    if (localStorage.current_song_link !== undefined) {
+        player.setAttribute("src", localStorage.current_song_link);
+        player.load()
+    }
 
     get_playlist();
 }
 
-function select_song(clicked) {
-    let new_song = song_list[clicked.id];
+function play_song(index) {
+    let song_link = song_list[index];
+    localStorage.setItem("current_song_link", song_link);
+    localStorage.setItem("current_song_index", index);
 
-    player.setAttribute("src", new_song);
-    localStorage.setItem("current_song", new_song);
+    player.setAttribute("src", song_link);
+    player.load()
     player.play();
+}
+
+function select_song(clicked) {
+    play_song(clicked.id);
+}
+
+function play_next() {
+    let current_song_index = parseInt(localStorage.current_song_index);
+    if (current_song_index < song_list_len) {
+        let next_song_index = current_song_index + 1;
+        play_song(next_song_index);
+    }
+}
+
+function play_previous() {
+    let current_song_index = parseInt(localStorage.current_song_index);
+    if (current_song_index > 0) {
+        let previous_song_index = current_song_index - 1;
+        play_song(previous_song_index);
+    }
 }
 
 function get_playlist() {
@@ -21,9 +47,11 @@ function get_playlist() {
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             song_list = JSON.parse(xhttp.response);
+            song_list_len = song_list.length - 1;
 
-            if (localStorage.current_song === undefined) {
-                localStorage.setItem("current_song", song_list[0]);
+            if (localStorage.current_song_link === undefined) {
+                localStorage.setItem("current_song_link", song_list[0]);
+                localStorage.setItem("current_song_index", 0);
             }
 
             var ul = document.getElementById("lst");

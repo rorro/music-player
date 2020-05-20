@@ -12,13 +12,48 @@ html, body {
     position: relative;
 }
 
-#rating {
-    width: 50px;
+#player-stuff {
+    display: flex;
     height: 50px;
-    display: inline-block;
-    float: right;
-    margin-top: -50px;
-    background-image: url("thmbdwn.png");
+    align-items: center;
+    margin: auto;
+    width: 50%;
+}
+
+#player {
+    width: 50%;
+}
+
+a {
+  text-decoration: none;
+}
+
+#previous, #next {
+  color: white;
+  font-size: 16px;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  align-content: center;
+  text-align: center;
+}
+
+#rating {
+  color: #E43F5A;
+  font-size: 16px;
+  width: 50px;
+  height: 50px;
+  display: grid;
+  align-content: center;
+  text-align: center;
+}
+
+.control-button:hover {
+    opacity: 70%;
+}
+
+.control-button:active {
+    opacity: 100%;
 }
 
 #playlist {
@@ -28,18 +63,18 @@ html, body {
     height: 90%;
 }
 
-.playlist_entry {
+.playlist-entry {
    list-style-type: none;
    font-size: 0.9em;
    margin-left: -30px;
    cursor: pointer;
 }
 
-.playlist_entry:hover {
+.playlist-entry:hover {
     background-color: #1F4068;
 }
 
-#playlist_header {
+#playlist-header {
    font-weight: bold;
    word-spacing: 4em;
    border-bottom: 1px white solid;
