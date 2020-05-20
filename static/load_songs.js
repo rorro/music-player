@@ -5,7 +5,8 @@ window.onload = function() {
 
     if (localStorage.current_song_link !== undefined) {
         player.setAttribute("src", localStorage.current_song_link);
-        player.load()
+        player.load();
+        display_song_info();
     }
 
     get_playlist();
@@ -17,12 +18,13 @@ function play_song(index) {
     localStorage.setItem("current_song_index", index);
 
     player.setAttribute("src", song_link);
-    player.load()
+    player.load();
     player.play();
 }
 
 function select_song(clicked) {
     play_song(clicked.id);
+    display_song_info();
 }
 
 function play_next() {
@@ -39,6 +41,17 @@ function play_previous() {
         let previous_song_index = current_song_index - 1;
         play_song(previous_song_index);
     }
+}
+
+function display_song_info() {
+    let current_song_split = localStorage.current_song_link.split("/");
+    let song_index = current_song_split.length - 1;
+
+    let current_singer = unescape(current_song_split[2]);
+    let current_song = unescape(current_song_split[song_index].slice(0,-4));
+
+    document.getElementById("current-singer").innerHTML = current_singer;
+    document.getElementById("current-song").innerHTML = current_song;
 }
 
 function get_playlist() {
@@ -62,7 +75,7 @@ function get_playlist() {
 
                 let li = document.createElement("li");
                 li.appendChild(document.createTextNode(unescape(formatted_song)));
-                li.setAttribute("class", "playlist_entry");
+                li.setAttribute("class", "playlist-entry");
                 li.setAttribute("id", song);
                 li.setAttribute("onclick", "select_song(this)");
 

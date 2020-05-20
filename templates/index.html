@@ -1,26 +1,31 @@
-<DOCTYPE html>
+<!doctype html>
+
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-            <title>Music Player</title>
-            <link rel="shortcut icon" type="image/x-icon" href="static/favicon.ico"/>
+        <title>Music Player</title>
+        <link rel="shortcut icon" type="image/x-icon" href="static/favicon.ico"/>
 
-            <link rel="stylesheet" href="static/style.css">
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="static/style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-            <script type="text/javascript" src="static/load_songs.js"></script>
+        <script type="text/javascript" src="static/load_songs.js"></script>
     </head>
     <body>
-        <p>Music Player</p>
-        <div id="player-stuff">
-            <audio  controls preload="metadata", onended="play_next()", id="player">
-                <source src="static/music/Janan Youkhanna/01-AudioTrack 01.mp3" type="audio/mpeg">
-                Your browser does not support the audio element.
-            </audio><br />
-            <a onclick="play_previous()" class="fa fa-step-backward control-button" id="previous"></a>
-            <a onclick="play_next()" class="fa fa-step-forward control-button" id="next"></a>
+        <div id="header">
+            <p>Music Player</p>
+            <div id="player-stuff">
+                <h4 id="current-singer">Current singer</h4>
+                <h4 id="current-song">Current song</h4>
+                <audio  controls preload="metadata", onended="play_next()", id="player">
+                    <source src="static/music/Janan Youkhanna/01-AudioTrack 01.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio><br />
+                <a onclick="play_previous()" class="fa fa-step-backward control-button" id="previous"></a>
+                <a onclick="play_next()" class="fa fa-step-forward control-button" id="next"></a>
 
-            <a id="rating" class="fa fa-thumbs-down control-button"></a>
+                <a id="rating" class="fa fa-thumbs-down control-button"></a>
+            </div>
         </div>
 
         <p id="playlist-header">Album | Song</p>
