@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template, request, jsonify
-import os, glob
+import os
 from urllib.parse import quote
+import json
+import dbhelper
 
 static_folder = os.path.join(os.pardir, 'static')
 MUSIC_FOLDER = "static/music"
@@ -26,3 +28,38 @@ def get_songlist():
 
     return jsonify(mp3files)
 
+@bp.route("/votes", methods=["GET"])
+def get_votes():
+    link = request.headers['link']
+    token = request.headers['token']
+
+    votes = dbhelper.get_votes(link)
+    if votes:
+        res_data = {"upvotes": votes[0], "downvotes":votes[1]}
+    else:
+        res_data = {"upvotes": 0, "downvotes": 0}
+
+
+    return jsonify(res_data)
+
+
+@bp.route("/vote", methods=['POST'])
+def vote():
+    req_data = request.json
+
+    link = req_data['link']
+    token = req_data['token']
+    vote_type = req_data['type']
+
+    if vote_type == 'up':
+        dbhelper.upvote(token, link)
+    else:
+        dbhelper.downvote(token, link)
+
+    votes = dbhelper.get_votes(link);
+    if votes:
+        res_data = {"upvotes": votes[0], "downvotes":votes[1]}
+    else:
+        res_data = {"upvotes": 0, "downvotes": 0}
+
+    return jsonify(res_data)

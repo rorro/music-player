@@ -2,6 +2,8 @@ from flask import Flask
 from home.views import bp
 
 import socket
+from os import system
+from pathlib import Path
 
 def create_app(config_file):
     app = Flask(__name__)
@@ -21,6 +23,11 @@ def get_ip():
         s.close()
     return ip
 
+def create_db():
+    if not Path("database.db").is_file():
+        system("sqlite3 database.db < schema.sql")
+
 if __name__ == '__main__':
+    create_db()
     app = create_app('settingslocal.py')
     app.run(host=get_ip(), port='5000')
