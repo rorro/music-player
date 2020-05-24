@@ -73,10 +73,12 @@ a {
 
 #thumb-up {
     color: #3FE487;
+    font-size: "1m";
 }
 
 #thumb-down {
     color: #E43F5A;
+    font-size: "1m";
 }
 
 .control-button:hover {

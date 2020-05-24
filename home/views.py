@@ -34,10 +34,12 @@ def get_votes():
     token = request.headers['token']
 
     votes = dbhelper.get_votes(link)
+    vote_type = dbhelper.get_vote_type(token, link)
+
     if votes:
-        res_data = {"upvotes": votes[0], "downvotes":votes[1]}
+        res_data = {"upvotes": votes[0], "downvotes":votes[1], "vote_type": vote_type}
     else:
-        res_data = {"upvotes": 0, "downvotes": 0}
+        res_data = {"upvotes": 0, "downvotes": 0, "vote_type": None}
 
 
     return jsonify(res_data)
@@ -51,15 +53,15 @@ def vote():
     token = req_data['token']
     vote_type = req_data['type']
 
-    if vote_type == 'up':
+    if vote_type == 1:
         dbhelper.upvote(token, link)
     else:
         dbhelper.downvote(token, link)
 
     votes = dbhelper.get_votes(link);
     if votes:
-        res_data = {"upvotes": votes[0], "downvotes":votes[1]}
+        res_data = {"upvotes": votes[0], "downvotes": votes[1], "vote_type": vote_type}
     else:
-        res_data = {"upvotes": 0, "downvotes": 0}
+        res_data = {"upvotes": 0, "downvotes": 0, "vote_type": vote_type}
 
     return jsonify(res_data)

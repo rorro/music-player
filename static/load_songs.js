@@ -76,6 +76,8 @@ function display_song_info() {
 
     document.getElementById("current-singer").innerHTML = current_singer;
     document.getElementById("current-song").innerHTML = current_song;
+    document.getElementById("thumb-up").style.fontSize = "1em";
+    document.getElementById("thumb-down").style.fontSize = "1em";
 
     get_votes(current_song_link, localStorage.token);
 }
@@ -125,11 +127,11 @@ function vote(up) {
     var xhttp = new XMLHttpRequest();
     if (up) {
         xhttp.open("POST", "vote", true);
-        data["type"] = "up";
+        data["type"] = 1;
     }
     else {
         xhttp.open("POST", "vote", true);
-        data["type"] = "down";
+        data["type"] = 0;
     }
 
     xhttp.setRequestHeader("Content-Type", "application/json");
@@ -144,12 +146,37 @@ function vote(up) {
 }
 
 function display_votes(votes) {
-    document.getElementById("thumb-up").innerHTML =  votes.upvotes;
-    document.getElementById("thumb-down").innerHTML =  votes.downvotes;
+    var thumb_up = document.getElementById("thumb-up");
+    var thumb_down = document.getElementById("thumb-down");
+
+    thumb_up.innerHTML =  votes.upvotes;
+    thumb_down.innerHTML =  votes.downvotes;
+
+    if (votes.vote_type == 1) {
+        if (thumb_up.style.fontSize == "1.5em") {
+            thumb_up.style.fontSize = "1em";
+        }
+        else {
+            thumb_up.style.fontSize = "1.5em";
+        }
+        thumb_down.style.fontSize = "1em";
+    }
+    else if (votes.vote_type == 0) {
+        if (thumb_down.style.fontSize == "1.5em") {
+            thumb_down.style.fontSize = "1em";
+        }
+        else {
+            thumb_down.style.fontSize = "1.5em";
+        }
+        thumb_up.style.fontSize = "1em";
+    }
+    else {
+        thumb_up.style.fontSize = "1em";
+        thumb_down.style.fontSize = "1em";
+    }
 }
 
 function get_votes(link, token) {
-    console.log(link);
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", "votes", true);
 
