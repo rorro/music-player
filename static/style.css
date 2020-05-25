@@ -113,3 +113,24 @@ a {
 .playlist-entry:hover {
     background-color: #1F4068;
 }
+
+#filter {
+    display: flex;
+}
+
+#filter h4 {
+    position: fixed;
+    top: 30px;
+    font-size: 0.9em;
+    font-weight: normal;
+}
+
+#filter a {
+    padding-left: 5px;
+    padding-top: 5px;
+}
+
+#filter a:hover {
+    background-color: #1F4068;
+    cursor: pointer;
+}

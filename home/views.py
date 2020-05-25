@@ -3,6 +3,7 @@ import os
 from urllib.parse import quote
 import json
 import dbhelper
+from functools import wraps
 
 static_folder = os.path.join(os.pardir, 'static')
 MUSIC_FOLDER = "static/music"
@@ -23,8 +24,6 @@ def get_songlist():
     for root, dirs, files in os.walk(MUSIC_FOLDER):
         if files:
             mp3files += [quote(os.path.join(root, f)) for f in files if f.endswith('.mp3')]
-
-    print("mp3files:", len(mp3files))
 
     return jsonify(mp3files)
 
@@ -65,3 +64,11 @@ def vote():
         res_data = {"upvotes": 0, "downvotes": 0, "vote_type": vote_type}
 
     return jsonify(res_data)
+
+@bp.route("/filter", methods=["GET"])
+def get_filtered_votes():
+    upvotes = request.headers['upvotes']
+    downvotes = request.headers['downvotes']
+
+    return jsonify(dbhelper.filter_votes(upvotes, downvotes))
+

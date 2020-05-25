@@ -1,4 +1,3 @@
-from flask import g
 import sqlite3
 
 DATABASE = "database.db"
@@ -106,4 +105,22 @@ def downvote(token, link):
                       values (?, ?, ?) ''', (token, link, 0))
 
     db.commit()
+    db.close()
+
+def filter_votes(upvotes, downvotes):
+    db = sqlite3.connect(DATABASE)
+    c = db.cursor()
+
+    upvoted, downvoted = [], []
+
+    if upvotes == "true":
+        c.execute(''' select link from songs where upvotes > 0 and downvotes = 0 ''')
+        upvoted = [link[0] for link in c.fetchall()]
+    if downvotes == "true":
+        c.execute(''' select link from songs where upvotes = 0 and downvotes > 0 ''')
+        downvoted = [link[0] for link in c.fetchall()]
+
+    res = {"upvoted": upvoted, "downvoted": downvoted}
+    return res
+
     db.close()

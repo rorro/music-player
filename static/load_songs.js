@@ -3,13 +3,18 @@ window.onload = function() {
     var song_list_len = 0;
     var player = document.getElementById("player");
 
-    // first time listener
+
     if (localStorage.token === undefined) {
         let token = generate_token(18);
 
         localStorage.setItem("token", token);
         localStorage.setItem("current_song_index", 0);
         localStorage.setItem("current_song_link", "static/music/Janan%20Youkhanna/01-AudioTrack%2001.mp3");
+    }
+
+    if (localStorage.upvotes === undefined || localStorage.downvotes === "undefined") {
+        localStorage.setItem("upvotes", false);
+        localStorage.setItem("downvotes", false);
     }
 
     // Pick up listening where you left off
@@ -95,26 +100,34 @@ function get_playlist() {
                 localStorage.setItem("current_song_index", 0);
             }
 
-            var ul = document.getElementById("lst");
+            display_playlist();
 
-            for (song in song_list) {
-                let formatted_song = song_list[song].split("/").slice(2).join(" | ");
-                formatted_song = formatted_song.split(".").slice(0,-1).join();
-
-                let li = document.createElement("li");
-                li.appendChild(document.createTextNode(unescape(formatted_song)));
-                li.setAttribute("class", "playlist-entry");
-                li.setAttribute("id", song);
-                li.setAttribute("onclick", "select_song(this)");
-
-                ul.appendChild(li);
-            }
         }
     };
 
     xhttp.open("GET", "songlist", true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.send();
+}
+
+function display_playlist() {
+    var p = document.getElementById("playlist");
+    var ul = document.createElement("ul");
+    ul.setAttribute("id", "lst");
+    p.appendChild(ul);
+
+    for (song in song_list) {
+        let formatted_song = song_list[song].split("/").slice(2).join(" | ");
+        formatted_song = formatted_song.split(".").slice(0,-1).join();
+
+        let li = document.createElement("li");
+        li.appendChild(document.createTextNode(unescape(formatted_song)));
+        li.setAttribute("class", "playlist-entry");
+        li.setAttribute("id", song);
+        li.setAttribute("onclick", "select_song(this)");
+
+        ul.appendChild(li);
+    }
 }
 
 
@@ -189,6 +202,55 @@ function get_votes(link, token) {
             display_votes(JSON.parse(xhttp.response));
         }
     }
-
     xhttp.send();
+}
+
+function filter_votes() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", "filter", true);
+
+    xhttp.setRequestHeader("upvotes", localStorage.upvotes);
+    xhttp.setRequestHeader("downvotes", localStorage.downvotes);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var server_response = JSON.parse(xhttp.response);
+            var upvoted = server_response.upvoted;
+            var downvoted = server_response.downvoted;
+
+            var children = document.getElementById("lst").children;
+
+            for (i = 0; i < song_list.length; i++) {
+                if (upvoted.includes(song_list[i])) {
+                    children[i].setAttribute("style", "background-color: green;");
+                }
+                else if (downvoted.includes(song_list[i])) {
+                    children[i].setAttribute("style", "background-color: red;");
+                }
+                else {
+                    children[i].removeAttribute("style");
+                }
+            }
+        }
+    }
+    xhttp.send();
+}
+
+function filter_upvotes_check(box) {
+    if (box.checked == true) {
+        localStorage.setItem("upvotes", "true");
+    }
+    else {
+        localStorage.setItem("upvotes", "false");
+    }
+}
+
+function filter_downvotes_check(box) {
+    if (box.checked == true) {
+        localStorage.setItem("downvotes", "true");
+    }
+    else {
+        localStorage.setItem("downvotes", "false");
+    }
 }
