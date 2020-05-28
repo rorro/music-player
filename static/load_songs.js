@@ -228,10 +228,10 @@ function filter_votes() {
 
             for (i = 0; i < song_list.length; i++) {
                 if (upvoted.includes(song_list[i])) {
-                    children[i].setAttribute("style", "background-color: green;");
+                    children[i].setAttribute("style", "background-color: #3FE487;");
                 }
                 else if (downvoted.includes(song_list[i])) {
-                    children[i].setAttribute("style", "background-color: red;");
+                    children[i].setAttribute("style", "background-color: #E43F5A;");
                 }
                 else {
                     children[i].removeAttribute("style");
