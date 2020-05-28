@@ -136,6 +136,7 @@ function vote(up) {
         "link": localStorage.current_song_link,
         "token": localStorage.token
     }
+    var skip = false;
 
     var xhttp = new XMLHttpRequest();
     if (up) {
@@ -145,6 +146,7 @@ function vote(up) {
     else {
         xhttp.open("POST", "vote", true);
         data["type"] = 0;
+        skip = true;
     }
 
     xhttp.setRequestHeader("Content-Type", "application/json");
@@ -152,6 +154,9 @@ function vote(up) {
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             display_votes(JSON.parse(xhttp.response));
+            if (skip) {
+                play_next();
+            }
         }
     }
 
