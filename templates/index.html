@@ -27,15 +27,15 @@
                 <a onclick="vote(true)" id="thumb-up" class="fa fa-thumbs-up control-button rating">0</a>
                 <a onclick="vote(false)" id="thumb-down" class="fa fa-thumbs-down control-button rating">0</a>
 
-                <div id="filter">
+                <div id="highlight">
                     <h4>Highlight songs by votes</h4>
-                    <input type="checkbox" id="filter-upvote" title="Highligth songs with only upvotes" onclick="filter_upvotes_check(this)">
-                    <label for="filter-upvotes" class="fa fa-thumbs-up" title="Highligth songs with only upvotes"></label>
+                    <input type="checkbox" id="highlight-upvote" title="Highligth songs with only upvotes" onclick="highlight_upvotes_check(this)">
+                    <label for="highlight-upvotes" class="fa fa-thumbs-up" title="Highligth songs with only upvotes"></label>
 
-                    <input type="checkbox" id="filter-downvotes" title="Highligth songs with only downvotes" onclick="filter_downvotes_check(this)">
-                    <label for="filter-downvotes" class="fa fa-thumbs-down" title="Highligth songs with only downvotes"></label>
+                    <input type="checkbox" id="highlight-downvotes" title="Highligth songs with only downvotes" onclick="highlight_downvotes_check(this)">
+                    <label for="highlight-downvotes" class="fa fa-thumbs-down" title="Highligth songs with only downvotes"></label>
 
-                    <a onclick="filter_votes()">Filter</a>
+                    <a onclick="highlight_votes()">Highlight</a>
                 </div>
             </div>
         </div>

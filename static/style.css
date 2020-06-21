@@ -114,23 +114,23 @@ a {
     background-color: #1F4068;
 }
 
-#filter {
+#highlight {
     display: flex;
 }
 
-#filter h4 {
+#highlight h4 {
     position: fixed;
     top: 30px;
     font-size: 0.9em;
     font-weight: normal;
 }
 
-#filter a {
+#highlight a {
     padding-left: 5px;
     padding-top: 5px;
 }
 
-#filter a:hover {
+#highlight a:hover {
     background-color: #1F4068;
     cursor: pointer;
 }

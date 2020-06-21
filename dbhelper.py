@@ -107,7 +107,7 @@ def downvote(token, link):
     db.commit()
     db.close()
 
-def filter_votes(upvotes, downvotes):
+def highlight_votes(upvotes, downvotes):
     db = sqlite3.connect(DATABASE)
     c = db.cursor()
 

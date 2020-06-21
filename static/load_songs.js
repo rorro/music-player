@@ -16,6 +16,14 @@ window.onload = function() {
         localStorage.setItem("upvotes", false);
         localStorage.setItem("downvotes", false);
     }
+    else {
+        if (localStorage.upvotes === "true") {
+            document.getElementById("highlight-upvote").checked = true;
+        }
+        if (localStorage.downvotes === "true") {
+            document.getElementById("highlight-upvote").checked = true;
+        }
+    }
 
     // Pick up listening where you left off
     if (localStorage.current_song_link !== undefined) {
@@ -210,9 +218,9 @@ function get_votes(link, token) {
     xhttp.send();
 }
 
-function filter_votes() {
+function highlight_votes() {
     var xhttp = new XMLHttpRequest();
-    xhttp.open("GET", "filter", true);
+    xhttp.open("GET", "highlight", true);
 
     xhttp.setRequestHeader("upvotes", localStorage.upvotes);
     xhttp.setRequestHeader("downvotes", localStorage.downvotes);
@@ -242,7 +250,7 @@ function filter_votes() {
     xhttp.send();
 }
 
-function filter_upvotes_check(box) {
+function highlight_upvotes_check(box) {
     if (box.checked == true) {
         localStorage.setItem("upvotes", "true");
     }
@@ -251,7 +259,7 @@ function filter_upvotes_check(box) {
     }
 }
 
-function filter_downvotes_check(box) {
+function highlight_downvotes_check(box) {
     if (box.checked == true) {
         localStorage.setItem("downvotes", "true");
     }

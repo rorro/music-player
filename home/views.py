@@ -65,10 +65,10 @@ def vote():
 
     return jsonify(res_data)
 
-@bp.route("/filter", methods=["GET"])
-def get_filtered_votes():
+@bp.route("/highlight", methods=["GET"])
+def get_highlighted_votes():
     upvotes = request.headers['upvotes']
     downvotes = request.headers['downvotes']
 
-    return jsonify(dbhelper.filter_votes(upvotes, downvotes))
+    return jsonify(dbhelper.highlight_votes(upvotes, downvotes))
 
