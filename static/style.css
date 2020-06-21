@@ -22,19 +22,20 @@ html, body {
     display: flex;
     height: 50px;
     align-items: center;
-    margin: auto;
-    width: 50%;
+    width: 100%;
+    margin-top: 50px;
+    margin-left: 10px;
 }
 
 #current-song {
     position: fixed;
-    top: 20px;
+    top: 50px;
     font-size: 0.8em;
 }
 
 #current-singer {
     position: fixed;
-    top: 0px;
+    top: 30px;
     font-size: 0.8em;
 }
 
@@ -120,7 +121,7 @@ a {
 
 #highlight h4 {
     position: fixed;
-    top: 30px;
+    top: 50px;
     font-size: 0.9em;
     font-weight: normal;
 }
@@ -133,4 +134,8 @@ a {
 #highlight a:hover {
     background-color: #1F4068;
     cursor: pointer;
+}
+
+#filter-songs-select {
+    margin-left: 10px;
 }

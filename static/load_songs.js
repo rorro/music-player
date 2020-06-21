@@ -120,6 +120,8 @@ function get_playlist() {
 
 function display_playlist() {
     var p = document.getElementById("playlist");
+    p.innerHTML = '';
+
     var ul = document.createElement("ul");
     ul.setAttribute("id", "lst");
     p.appendChild(ul);
@@ -265,5 +267,41 @@ function highlight_downvotes_check(box) {
     }
     else {
         localStorage.setItem("downvotes", "false");
+    }
+}
+
+function filter_playlist(filter_type) {
+    var xhttp = new XMLHttpRequest();
+
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            song_list = JSON.parse(xhttp.response);
+            song_list_len = song_list.length - 1;
+
+            if (localStorage.current_song_link === undefined) {
+                localStorage.setItem("current_song_link", song_list[0]);
+                localStorage.setItem("current_song_index", 0);
+            }
+
+            display_playlist();
+
+        }
+    };
+
+    xhttp.open("GET", "filter", true);
+    xhttp.setRequestHeader("filter_type", filter_type);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send();
+}
+
+function check_filter() {
+    var drpm = document.getElementById("filter-songs-select");
+    var val = drpm.options[drpm.selectedIndex].value;
+
+    if (val === "all") {
+        get_playlist()
+    }
+    else {
+        filter_playlist(val);
     }
 }

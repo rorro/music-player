@@ -72,3 +72,33 @@ def get_highlighted_votes():
 
     return jsonify(dbhelper.highlight_votes(upvotes, downvotes))
 
+
+@bp.route("/filter", methods=['GET'])
+def filter_songlist():
+    mp3files = []
+
+    filter_type = request.headers['filter_type']
+    if filter_type == "upvotes":
+        voted_songs = dbhelper.highlight_votes("true", "false")
+        songs = voted_songs["upvoted"]
+    elif filter_type == "downvotes":
+        voted_songs = dbhelper.highlight_votes("false", "true")
+        songs = voted_songs["downvoted"]
+    else:
+        voted_songs = dbhelper.highlight_votes("true", "true")
+        songs = voted_songs["upvoted"] + voted_songs["downvoted"]
+
+    for root, dirs, files in os.walk(MUSIC_FOLDER):
+        if files:
+            for f in files:
+                if f.endswith('.mp3'):
+                    hit = quote(os.path.join(root, f))
+                    if filter_type != "unvoted":
+                        if hit in songs:
+                            mp3files += [hit]
+                    else:
+                        if hit not in songs:
+                            mp3files += [hit]
+
+
+    return jsonify(mp3files)

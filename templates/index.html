@@ -28,7 +28,7 @@
                 <a onclick="vote(false)" id="thumb-down" class="fa fa-thumbs-down control-button rating">0</a>
 
                 <div id="highlight">
-                    <h4>Highlight songs by votes</h4>
+                    <h4>Highlight songs</h4>
                     <input type="checkbox" id="highlight-upvote" title="Highligth songs with only upvotes" onclick="highlight_upvotes_check(this)">
                     <label for="highlight-upvotes" class="fa fa-thumbs-up" title="Highligth songs with only upvotes"></label>
 
@@ -37,6 +37,14 @@
 
                     <a onclick="highlight_votes()">Highlight</a>
                 </div>
+
+                <select name="filter" id="filter-songs-select" onchange="check_filter()">
+                    <option style="display:none;" selected="selected">Select filter</option>
+                    <option value="upvotes">Upvotes</option>
+                    <option value="downvotes">Downvotes</option>
+                    <option value="unvoted">Unvoted</option>
+                    <option value="all">All</option>
+                </select>
             </div>
         </div>
 
