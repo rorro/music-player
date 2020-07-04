@@ -1,4 +1,5 @@
 import sqlite3
+from urllib.parse import quote, unquote
 
 DATABASE = "database.db"
 
@@ -124,3 +125,14 @@ def highlight_votes(upvotes, downvotes):
     return res
 
     db.close()
+
+def get_upvotes():
+    upvotes = highlight_votes("true", "false")["upvoted"]
+
+    with open("upvotes.txt", "a") as f:
+        for link in upvotes:
+            fixed_link = unquote(link)
+            fixed_link = "/".join(fixed_link.split("/")[1:])
+
+            f.write(fixed_link+"\n")
+
