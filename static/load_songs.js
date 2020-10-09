@@ -1,6 +1,10 @@
 window.onload = function() {
     var song_list = [];
     var song_list_len = 0;
+
+    var shuffle_list = []
+    var shuffle_list_len = 0
+
     var player = document.getElementById("player");
 
 
@@ -23,6 +27,13 @@ window.onload = function() {
         if (localStorage.downvotes === "true") {
             document.getElementById("highlight-upvote").checked = true;
         }
+    }
+
+    if (localStorage.shuffle === undefined) {
+        localStorage.setItem("shuffle", false);
+    }
+    else if (localStorage.shuffle === "true") {
+        document.getElementById("shuffle-play").setAttribute("style", "color: #3FE487;")
     }
 
     // Pick up listening where you left off
@@ -50,8 +61,9 @@ function generate_token(length){
 
 function play_song(index) {
     let song_link = song_list[index];
+    let song_index = song_list.indexOf(song_link);
     localStorage.setItem("current_song_link", song_link);
-    localStorage.setItem("current_song_index", index);
+    localStorage.setItem("current_song_index", song_index);
 
     player.setAttribute("src", song_link);
     display_song_info();
@@ -64,10 +76,20 @@ function select_song(clicked) {
 }
 
 function play_next() {
-    let current_song_index = parseInt(localStorage.current_song_index);
-    if (current_song_index < song_list_len) {
-        let next_song_index = current_song_index + 1;
-        play_song(next_song_index);
+    if (localStorage.shuffle === "false") {
+        let current_song_index = parseInt(localStorage.current_song_index);
+
+        if (current_song_index < song_list_len) {
+            let next_song_index = current_song_index + 1;
+            play_song(next_song_index);
+        }
+    }
+    else {
+        if (shuffle_list.length >= 1) {
+            random_song = randomInt(0, shuffle_list.length);
+            play_song(random_song);
+            shuffle_list.splice(random_song, 1);
+        }
     }
 }
 
@@ -102,6 +124,9 @@ function get_playlist() {
         if (this.readyState == 4 && this.status == 200) {
             song_list = JSON.parse(xhttp.response);
             song_list_len = song_list.length - 1;
+
+            shuffle_list = song_list;
+            shuffle_list_len = song_list_len;
 
             if (localStorage.current_song_link === undefined) {
                 localStorage.setItem("current_song_link", song_list[0]);
@@ -304,4 +329,19 @@ function check_filter() {
     else {
         filter_playlist(val);
     }
+}
+
+function toggle_shuffle() {
+    if (localStorage.shuffle === "false") {
+        localStorage.setItem("shuffle", "true");
+        document.getElementById("shuffle-play").setAttribute("style", "color: #3FE487");
+    }
+    else {
+        localStorage.setItem("shuffle", "false");
+        document.getElementById("shuffle-play").removeAttribute("style");
+    }
+}
+
+function randomInt(min, max) {
+    return Math.floor((Math.random() * max) + min)
 }
